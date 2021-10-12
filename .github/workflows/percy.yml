@@ -1,0 +1,30 @@
+name: Visual testing
+on:
+  pull_request:
+    types: [edited, labeled, opened, synchronize, reopened]
+    branches:
+      - develop
+    # only run when src files have changed
+    paths:
+      - "src/**"
+  push:
+    branches:
+      - develop
+jobs:
+  percy:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: set up node.js
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: 14.15.0
+      - name: check out code
+        uses: actions/checkout@v2
+      - name: rename config file
+        run: mv src/common/utils/clientConfig.sample.ts src/common/utils/clientConfig.ts
+      - name: install
+        run: yarn install
+      - name: run cypress and percy tests
+        run: yarn cypress:ci
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
