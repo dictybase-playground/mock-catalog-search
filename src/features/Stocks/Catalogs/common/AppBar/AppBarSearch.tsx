@@ -108,12 +108,11 @@ type Props = {
 
 const AppBarSearch = ({ dropdownItems }: Props) => {
   const {
-    state: { searchValue, searchBoxDropdownValue, activeFilters },
+    state: { searchValue, activeFilters },
     dispatch,
   } = useCatalogStore()
   const classes = useStyles()
-  const { handleChange, handleDropdownChange, handleSubmit, clearSearch } =
-    useAppBarSearch()
+  const { handleChange, handleSubmit, clearSearch } = useAppBarSearch()
 
   const clearFiltersFromInput = (e: React.KeyboardEvent<any>) => {
     // Remove filters if user hits backspace
@@ -135,6 +134,10 @@ const AppBarSearch = ({ dropdownItems }: Props) => {
 
   return (
     <form onSubmit={handleSubmit} className={classes.searchForm}>
+      <IconButton onClick={handleSubmit} role="search-button">
+        <FontAwesomeIcon icon={"search"} size="xs" />
+      </IconButton>
+
       <ActiveFilters />
 
       <TextField
@@ -144,14 +147,6 @@ const AppBarSearch = ({ dropdownItems }: Props) => {
         onKeyDown={clearFiltersFromInput}
         value={searchValue}
         InputProps={{
-          startAdornment: (
-            <InputAdornment
-              position="start"
-              onClick={handleSubmit}
-              role="search-button">
-              <FontAwesomeIcon icon={"search"} style={{ cursor: "pointer" }} />
-            </InputAdornment>
-          ),
           endAdornment:
             searchValue.length > 0 ? (
               <InputAdornment position="end">
