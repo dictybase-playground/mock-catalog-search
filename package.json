@@ -108,7 +108,7 @@
     "husky": "7.0.2",
     "lint-staged": "^11.1.2",
     "msw": "^0.35.0",
-    "pinst": "^2.1.6",
+    "pinst": "^3.0.0",
     "prettier": "^2.4.1",
     "react-docgen-typescript": "^2.1.0",
     "react-styleguidist": "^11.1.7",
